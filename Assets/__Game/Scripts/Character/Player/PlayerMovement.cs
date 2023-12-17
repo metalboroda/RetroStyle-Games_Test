@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using Zenject;
@@ -6,7 +7,9 @@ namespace Test_Game
 {
   public class PlayerMovement : CharacterMovement
   {
+    [field: Header("Look")]
     [field: SerializeField] public int RotationSpeed { get; private set; } = 25;
+    [SerializeField] private int _verticalRotSpeed = 25;
 
     [field: Header("Jump")]
     [field: SerializeField] public float JumpForce { get; private set; } = 5;
@@ -25,17 +28,27 @@ namespace Test_Game
 
     public float GravityMult { get; private set; }
 
+    private CinemachineVirtualCamera _virtualCamera;
+
     [Inject] public CameraManager CameraManager { get; private set; }
     [Inject] public InputManager InputManager { get; private set; }
 
     private void Awake()
     {
+      _virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+
       InputManager.JumpPressed += Jump;
     }
 
     private void OnDestroy()
     {
       InputManager.JumpPressed -= Jump;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+      Gizmos.color = Color.green;
+      Gizmos.DrawWireSphere(transform.position, _groundCheckRadius);
     }
 
     public bool IsGrounded()
@@ -61,12 +74,6 @@ namespace Test_Game
       yield return new WaitForSeconds(_jumpDuration);
 
       _playerController.StateMachine.ChangeState(new PlayerInAirState(_playerController));
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-      Gizmos.color = Color.green;
-      Gizmos.DrawWireSphere(transform.position, _groundCheckRadius);
     }
   }
 }

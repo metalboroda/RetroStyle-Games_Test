@@ -9,16 +9,16 @@
                     "name": "Movement",
                     "type": "Value",
                     "id": "1fee39fc-73ba-4d1a-926d-c6c04a3673a9",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
                     "name": "Look",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "78149888-7e7d-48b3-8831-cdd1899700d1",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

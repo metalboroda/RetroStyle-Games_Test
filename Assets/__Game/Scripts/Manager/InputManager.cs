@@ -31,6 +31,11 @@ namespace Test_Game
       return _playerInputActions.OnFeet.Look.ReadValue<Vector2>();
     }
 
+    public float GetLookAxisY()
+    {
+      return _playerInputActions.OnFeet.Look.ReadValue<Vector2>().y;
+    }
+
     private void OnJump(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
       JumpPressed?.Invoke();
