@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Test_Game
 {
   public class PlayerMovementState : State
@@ -20,6 +22,11 @@ namespace Test_Game
       _playerMovementComp.Rotate(_playerMovement.RotationSpeed, _playerMovement.InputManager.GetLookAxis().x,
         100, _playerMovement.CharacterController);
       _playerMovementComp.Gravity(1, _playerMovement.CharacterController);
+
+      if (_playerMovement.IsGrounded() == false)
+      {
+        _playerController.StateMachine.ChangeState(new PlayerInAirState(_playerController));
+      }
     }
   }
 }

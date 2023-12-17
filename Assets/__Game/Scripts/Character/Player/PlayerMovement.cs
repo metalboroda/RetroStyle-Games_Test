@@ -10,6 +10,8 @@ namespace Test_Game
 
     [field: Header("Jump")]
     [field: SerializeField] public float JumpForce { get; private set; } = 5;
+    [SerializeField] private float _jumpDuration = 1;
+    [field: SerializeField] public float JumpImpulse { get; private set; }
 
     [Header("Ground check")]
     [SerializeField] private float _groundCheckRadius = 0.1f;
@@ -22,8 +24,6 @@ namespace Test_Game
     [SerializeField] private PlayerController _playerController;
 
     public float GravityMult { get; private set; }
-
-    public Camera CameraMain { get; private set; }
 
     [Inject] public CameraManager CameraManager { get; private set; }
     [Inject] public InputManager InputManager { get; private set; }
@@ -51,7 +51,22 @@ namespace Test_Game
       if (IsGrounded() == true)
       {
         _playerController.StateMachine.ChangeState(new PlayerJumpState(_playerController));
+
+        StartCoroutine(DoInAir());
       }
+    }
+
+    private IEnumerator DoInAir()
+    {
+      yield return new WaitForSeconds(_jumpDuration);
+
+      _playerController.StateMachine.ChangeState(new PlayerInAirState(_playerController));
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+      Gizmos.color = Color.green;
+      Gizmos.DrawWireSphere(transform.position, _groundCheckRadius);
     }
   }
 }

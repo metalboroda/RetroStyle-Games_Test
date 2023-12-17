@@ -38,17 +38,29 @@ namespace Test_Game
       characterController.Move(gravityVector);
     }
 
-    public void Jump(float jumpForce, CharacterController characterController)
+    public void Jump(float jumpForce, float forwardImpulse, CharacterController characterController, Vector2 axis, Camera camera)
     {
-      if (characterController.isGrounded)
-      {
-        _verticalSpeed = jumpForce;
-      }
-
+      _verticalSpeed = jumpForce;
       _verticalSpeed += Physics.gravity.y * Time.deltaTime;
 
+      float horizontal = axis.x;
+      float vertical = axis.y;
+
+      Vector3 cameraForward = camera.transform.forward;
+      Vector3 cameraRight = camera.transform.right;
+
+      cameraForward.y = 0.0f;
+      cameraRight.y = 0.0f;
+
+      Vector3 moveDirection = (cameraForward.normalized * vertical + cameraRight.normalized * horizontal).normalized;
+
       Vector3 jumpVector = new Vector3(0, _verticalSpeed, 0) * Time.deltaTime;
+
       characterController.Move(jumpVector);
+
+      Vector3 forwardImpulseVector = moveDirection * forwardImpulse * Time.deltaTime;
+
+      characterController.Move(forwardImpulseVector);
     }
   }
 }
