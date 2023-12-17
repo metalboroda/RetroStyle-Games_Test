@@ -398,7 +398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 198456211}
   m_Layer: 0
-  m_Name: Arena
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2471,7 +2471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1434157965894472541, guid: 7257e6973d2b2e04dad767167188492f, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3696967742898769915, guid: 7257e6973d2b2e04dad767167188492f, type: 3}
       propertyPath: m_VerticalAxis.m_InputAxisName
