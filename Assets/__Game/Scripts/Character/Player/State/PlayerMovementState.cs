@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Test_Game
 {
   public class PlayerMovementState : State
@@ -8,9 +6,10 @@ namespace Test_Game
     {
       _playerController = playerController;
       _playerMovement = _playerController.PlayerMovement;
+      _playerMovementComp = _playerMovement.PlayerMovementComp;
     }
 
-    private PlayerMovementComp _playerMovementComp = new();
+    private PlayerMovementComp _playerMovementComp;
 
     private PlayerController _playerController;
     private PlayerMovement _playerMovement;
@@ -21,7 +20,7 @@ namespace Test_Game
         _playerMovement.CharacterController, _playerMovement.CameraManager.CameraMain);
       _playerMovementComp.Rotate(_playerMovement.RotationSpeed, _playerMovement.InputManager.GetLookAxis().x,
         100, _playerMovement.CharacterController);
-      _playerMovementComp.Gravity(1, _playerMovement.CharacterController);
+      _playerMovementComp.Gravity(_playerMovement.CharacterController);
 
       if (_playerMovement.IsGrounded() == false)
       {

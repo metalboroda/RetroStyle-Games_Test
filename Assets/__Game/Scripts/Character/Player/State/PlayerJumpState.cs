@@ -1,5 +1,4 @@
 using UnityEngine;
-using Zenject;
 
 namespace Test_Game
 {
@@ -9,7 +8,7 @@ namespace Test_Game
     {
       _playerController = playerController;
       _playerMovement = _playerController.PlayerMovement;
-      _playerMovementComp = new();
+      _playerMovementComp = _playerMovement.PlayerMovementComp;
     }
 
     private float _checkGroundTick;
@@ -40,7 +39,7 @@ namespace Test_Game
         _playerMovement.CharacterController, _playerMovement.CameraManager.CameraMain);
       _playerMovementComp.Rotate(_playerMovement.RotationSpeed, _playerMovement.InputManager.GetLookAxis().x,
         100, _playerMovement.CharacterController);
-      _playerMovementComp.Gravity(1, _playerMovement.CharacterController);
+      _playerMovementComp.Gravity(_playerMovement.CharacterController);
       _playerMovementComp.Jump(_playerMovement.JumpForce, _playerMovement.JumpImpulse,
         _playerMovement.CharacterController, _playerMovement.InputManager.GetMovementAxis(),
         _playerMovement.CameraManager.CameraMain);

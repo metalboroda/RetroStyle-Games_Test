@@ -377,10 +377,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MovementSpeed>k__BackingField: 5
   <RotationSpeed>k__BackingField: 20
-  _verticalRotSpeed: 25
-  <JumpForce>k__BackingField: 17.5
-  _jumpDuration: 0.12
-  <JumpImpulse>k__BackingField: 3
+  <JumpForce>k__BackingField: 0
+  _jumpDuration: 0.3
+  <JumpImpulse>k__BackingField: 5
   _groundCheckRadius: 0.2
   _groundLayer:
     serializedVersion: 2

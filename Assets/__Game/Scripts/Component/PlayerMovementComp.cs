@@ -31,9 +31,9 @@ namespace Test_Game
       characterController.transform.Rotate(_currentRotation);
     }
 
-    public void Gravity(float gravityMult, CharacterController characterController)
+    public void Gravity(CharacterController characterController)
     {
-      Vector3 gravityVector = Physics.gravity * gravityMult * Time.deltaTime;
+      Vector3 gravityVector = Physics.gravity * Time.deltaTime;
 
       characterController.Move(gravityVector);
     }

@@ -1,4 +1,3 @@
-using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using Zenject;
@@ -9,7 +8,6 @@ namespace Test_Game
   {
     [field: Header("Look")]
     [field: SerializeField] public int RotationSpeed { get; private set; } = 25;
-    [SerializeField] private int _verticalRotSpeed = 25;
 
     [field: Header("Jump")]
     [field: SerializeField] public float JumpForce { get; private set; } = 5;
@@ -26,17 +24,14 @@ namespace Test_Game
     [Header("")]
     [SerializeField] private PlayerController _playerController;
 
-    public float GravityMult { get; private set; }
-
-    private CinemachineVirtualCamera _virtualCamera;
+    public PlayerMovementComp PlayerMovementComp { get; private set; }
 
     [Inject] public CameraManager CameraManager { get; private set; }
     [Inject] public InputManager InputManager { get; private set; }
 
     private void Awake()
     {
-      _virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
-
+      PlayerMovementComp = new();
       InputManager.JumpPressed += Jump;
     }
 
