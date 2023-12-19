@@ -18,7 +18,7 @@ namespace Test_Game
     private int _randChance;
     private int _maxRandChance;
 
-    private CompositeDisposable _flyToTargetDisposable = new();
+    private CompositeDisposable _disposables = new();
 
     [Inject] private SpawnersController _spawnersController;
 
@@ -29,10 +29,6 @@ namespace Test_Game
       _maxRandChance = maxRandChance;
 
       GenerateRandomChance(maxRandChance);
-    }
-
-    private void Start()
-    {
       StartCoroutine(DoDestroyProjectile(8));
     }
 
@@ -43,11 +39,6 @@ namespace Test_Game
 
     private void OnTriggerEnter(Collider other)
     {
-      if (_ricochetCount >= _maxRicochetCount)
-      {
-        DestroyProjectile();
-      }
-
       if (other.TryGetComponent(out IDamageable damageable))
       {
         damageable.Damage(_power);
@@ -59,16 +50,23 @@ namespace Test_Game
       {
         TryToRicochet();
       }
+
+      if (_ricochetCount >= _maxRicochetCount)
+      {
+        DestroyProjectile();
+
+        return;
+      }
     }
 
-    public void GenerateRandomChance(int value)
+    private void GenerateRandomChance(int value)
     {
       _randChance = Random.Range(0, value + 1);
     }
 
     private void Fly()
     {
-      if (_flyToTarget == false)
+      if (!_flyToTarget)
       {
         transform.Translate(Vector3.forward * _speed * Time.deltaTime);
       }
@@ -79,35 +77,34 @@ namespace Test_Game
       if (_randChance != _maxRandChance)
       {
         DestroyProjectile();
+
+        return;
       }
-      else
+
+      _ricochetCount++;
+      Ricocheted = true;
+
+      Ray ray = new(transform.position, transform.forward);
+
+      if (Physics.Raycast(ray, out RaycastHit hit))
       {
-        _ricochetCount++;
-        Ricocheted = true;
-
-        Ray ray = new(transform.position, transform.forward);
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-          Vector3 reflectDirection = Vector3.Reflect(ray.direction, hit.normal);
-
-          transform.forward = reflectDirection;
-          transform.position = hit.point + hit.normal * 0.1f;
-        }
-
-        transform.Translate(Vector3.forward * _speed * Time.deltaTime);
+        Vector3 reflectDirection = Vector3.Reflect(ray.direction, hit.normal);
+        transform.forward = reflectDirection;
+        transform.position = hit.point + hit.normal * 0.1f;
       }
+
+      transform.Translate(Vector3.forward * _speed * Time.deltaTime);
     }
 
     private void TryToFindNewTarget()
     {
       if (_randChance != _maxRandChance)
       {
-        int rand = Random.Range(0, _maxRandChance + 1);
-
-        if (rand != _maxRandChance)
+        if (Random.Range(0, _maxRandChance + 1) != _maxRandChance)
         {
           DestroyProjectile();
+
+          return;
         }
       }
       else
@@ -117,19 +114,19 @@ namespace Test_Game
         if (closestEnemy == null)
         {
           DestroyProjectile();
-        }
-        else
-        {
-          _flyToTarget = true;
 
-          Observable.EveryUpdate().Subscribe(_ =>
-          {
-            if (closestEnemy != null)
-            {
-              MoveTowardsTarget(closestEnemy.transform.position);
-            }
-          }).AddTo(_flyToTargetDisposable);
+          return;
         }
+
+        _flyToTarget = true;
+
+        Observable.EveryUpdate().Subscribe(_ =>
+        {
+          if (closestEnemy != null)
+          {
+            MoveTowardsTarget(closestEnemy.transform.position);
+          }
+        }).AddTo(_disposables);
       }
     }
 
@@ -143,7 +140,7 @@ namespace Test_Game
 
     private void DestroyProjectile()
     {
-      _flyToTargetDisposable.Dispose();
+      _disposables.Dispose();
 
       Destroy(gameObject);
     }
@@ -152,9 +149,7 @@ namespace Test_Game
     {
       yield return new WaitForSeconds(delay);
 
-      _flyToTargetDisposable.Dispose();
-
-      Destroy(gameObject);
+      DestroyProjectile();
     }
   }
 }

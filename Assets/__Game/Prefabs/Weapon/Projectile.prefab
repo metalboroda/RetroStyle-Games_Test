@@ -180,4 +180,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 934713ab6054c7742baca5e89a6d6ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxRicochetCount: 1
+  _maxRicochetCount: 2
