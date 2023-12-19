@@ -34,7 +34,7 @@ namespace Test_Game
 
     protected override void Shoot()
     {
-      Projectile spawnedProjectile = _projectileContainer.InstantiatePrefabForComponent<Projectile>(
+      PlayerProjectile spawnedProjectile = _projectileContainer.InstantiatePrefabForComponent<PlayerProjectile>(
           Projectile, _shootingPoint.position + _shootingPoint.forward *
           _shootingPointZOffset, _shootingPoint.rotation, null
       );
