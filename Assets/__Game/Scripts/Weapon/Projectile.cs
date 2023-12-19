@@ -43,33 +43,21 @@ namespace Test_Game
 
     private void OnTriggerEnter(Collider other)
     {
+      if (_ricochetCount >= _maxRicochetCount)
+      {
+        DestroyProjectile();
+      }
+
       if (other.TryGetComponent(out IDamageable damageable))
       {
         damageable.Damage(_power);
         _ricochetCount++;
 
-        if (_randChance != _maxRandChance)
-        {
-          if (_ricochetCount >= _maxRicochetCount)
-          {
-            DestroyProjectile();
-          }
-          else
-          {
-            TryToFindNewTarget();
-          }
-        }
+        TryToFindNewTarget();
       }
       else
       {
-        if (_ricochetCount >= _maxRicochetCount)
-        {
-          DestroyProjectile();
-        }
-        else
-        {
-          TryToRicochet();
-        }
+        TryToRicochet();
       }
     }
 
@@ -113,23 +101,35 @@ namespace Test_Game
 
     private void TryToFindNewTarget()
     {
-      EnemyHandler closestEnemy = _spawnersController.GetSecondClosestEnemy(transform.position);
-
-      if (closestEnemy == null)
+      if (_randChance != _maxRandChance)
       {
-        DestroyProjectile();
+        int rand = Random.Range(0, _maxRandChance + 1);
+
+        if (rand != _maxRandChance)
+        {
+          DestroyProjectile();
+        }
       }
       else
       {
-        _flyToTarget = true;
+        EnemyHandler closestEnemy = _spawnersController.GetSecondClosestEnemy(transform.position);
 
-        Observable.EveryUpdate().Subscribe(_ =>
+        if (closestEnemy == null)
         {
-          if (closestEnemy != null)
+          DestroyProjectile();
+        }
+        else
+        {
+          _flyToTarget = true;
+
+          Observable.EveryUpdate().Subscribe(_ =>
           {
-            MoveTowardsTarget(closestEnemy.transform.position);
-          }
-        }).AddTo(_flyToTargetDisposable);
+            if (closestEnemy != null)
+            {
+              MoveTowardsTarget(closestEnemy.transform.position);
+            }
+          }).AddTo(_flyToTargetDisposable);
+        }
       }
     }
 
