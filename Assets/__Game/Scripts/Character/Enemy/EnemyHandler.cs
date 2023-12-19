@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -5,6 +6,8 @@ namespace Test_Game
 {
   public class EnemyHandler : CharacterHandler, IDamageable
   {
+    public event Action Dead;
+
     [Header("")]
     [SerializeField] private int _deathCost;
 
@@ -41,6 +44,8 @@ namespace Test_Game
 
     public void Kill()
     {
+      Dead?.Invoke();
+
       Destroy(gameObject);
     }
   }

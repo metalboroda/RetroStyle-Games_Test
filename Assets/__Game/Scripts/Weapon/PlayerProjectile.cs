@@ -16,7 +16,7 @@ namespace Test_Game
     private int _randChance;
     private int _maxRandChance;
 
-    private CompositeDisposable _disposables = new();
+    private CompositeDisposable _moveToTargetDisposable = new();
 
     [Inject] private SpawnersController _spawnersController;
 
@@ -125,7 +125,7 @@ namespace Test_Game
           {
             MoveTowardsTarget(closestEnemy.transform.position);
           }
-        }).AddTo(_disposables);
+        }).AddTo(_moveToTargetDisposable);
       }
     }
 
@@ -139,7 +139,7 @@ namespace Test_Game
 
     private void DestroyProjectile()
     {
-      _disposables.Dispose();
+      _moveToTargetDisposable.Dispose();
 
       Destroy(gameObject);
     }

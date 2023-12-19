@@ -5,6 +5,8 @@ namespace Test_Game
 {
   public class PlayerController : MonoBehaviour
   {
+    public static PlayerController Instance { get; private set; }
+
     [field: SerializeField] public PlayerHandler PlayerHandler { get; private set; }
     [field: SerializeField] public PlayerMovement PlayerMovement { get; private set; }
 
@@ -17,6 +19,7 @@ namespace Test_Game
 
     private void Awake()
     {
+      Instance = this;
       StateMachine.Init(new PlayerMovementState(this));
     }
 
