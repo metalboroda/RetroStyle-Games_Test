@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
@@ -24,10 +25,12 @@ namespace Test_Game
     [SerializeField] private PlayerController _playerController;
 
     public PlayerMovementComp PlayerMovementComp { get; private set; }
+    public CinemachineInputProvider CinemachineInputProvider { get; private set; }
 
     private void Awake()
     {
       PlayerMovementComp = new();
+      CinemachineInputProvider = GetComponentInChildren<CinemachineInputProvider>();
       _playerController.InputManager.JumpPressed += Jump;
     }
 

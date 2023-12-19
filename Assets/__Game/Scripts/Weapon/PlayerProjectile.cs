@@ -62,7 +62,7 @@ namespace Test_Game
       _randChance = Random.Range(0, value + 1);
     }
 
-    private void Fly()
+    protected override void Fly()
     {
       if (!_flyToTarget)
       {

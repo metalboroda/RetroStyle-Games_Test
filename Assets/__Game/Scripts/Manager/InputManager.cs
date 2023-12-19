@@ -27,6 +27,11 @@ namespace Test_Game
       _playerInputActions.OnFeet.Ulta.performed -= OnUlta;
     }
 
+    public void DisableControls()
+    {
+      _playerInputActions.Disable();
+    }
+
     public Vector2 GetMovementAxis()
     {
       return _playerInputActions.OnFeet.Movement.ReadValue<Vector2>();

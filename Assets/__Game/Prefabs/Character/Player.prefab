@@ -364,6 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
+  _maxEnergy: 100
   _playerController: {fileID: 1604467215010843963}
 --- !u!114 &1329229890127129351
 MonoBehaviour:
@@ -400,9 +401,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52f0d8033beef3d49b100f07895e9db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 3190521583543805208, guid: 1ac4585da5716764db0b0b9df8ea4e31, type: 3}
-  ProjectileSpeed: 15
-  ProjectilePower: 100
+  Projectile: {fileID: 2572083096473820472, guid: 1ac4585da5716764db0b0b9df8ea4e31, type: 3}
+  <ProjectileSpeed>k__BackingField: 15
+  <ProjectilePower>k__BackingField: 100
   _shootingPointZOffset: 0.5
   <MaxRandomChance>k__BackingField: 10
 --- !u!1 &8220567636723534568
@@ -531,7 +532,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1e78d6e1f9675ca47b00d72c5d1f21cd, type: 2}
+  - {fileID: 2100000, guid: cdcb1cd859de07f40a41a8749ac667e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

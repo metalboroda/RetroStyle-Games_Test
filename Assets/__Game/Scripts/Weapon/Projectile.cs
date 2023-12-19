@@ -9,5 +9,7 @@ namespace Test_Game
 
     [Header("")]
     [SerializeField] protected float AutoDestroyTime = 5;
+
+    protected virtual void Fly() { }
   }
 }
