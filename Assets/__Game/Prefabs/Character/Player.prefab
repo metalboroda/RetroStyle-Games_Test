@@ -404,6 +404,7 @@ MonoBehaviour:
   ProjectileSpeed: 15
   ProjectilePower: 100
   _shootingPointZOffset: 0.5
+  <MaxRandomChance>k__BackingField: 8
 --- !u!1 &8220567636723534568
 GameObject:
   m_ObjectHideFlags: 0

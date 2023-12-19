@@ -7,9 +7,12 @@ namespace Test_Game
   {
     [SerializeField] private float _shootingPointZOffset = 1;
 
+    [field: Header("Ricochete")]
+    [field: SerializeField] public int MaxRandomChance { get; private set; } = 10;
+
     private Transform _shootingPoint;
 
-    [Inject] private DiContainer _projectileContainer; // Inject DiContainer directly
+    [Inject] private DiContainer _projectileContainer;
 
     [Inject] private CameraManager _cameraManager;
     [Inject] private InputManager _inputManager;
@@ -36,7 +39,7 @@ namespace Test_Game
           _shootingPointZOffset, _shootingPoint.rotation, null
       );
 
-      spawnedProjectile.Init(ProjectileSpeed, ProjectilePower);
+      spawnedProjectile.Init(ProjectileSpeed, ProjectilePower, MaxRandomChance);
     }
   }
 }

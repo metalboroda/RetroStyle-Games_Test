@@ -16,20 +16,23 @@ namespace Test_Game
     private int _ricochetCount = 0;
     private bool _flyToTarget;
     private int _randChance;
+    private int _maxRandChance;
 
     private CompositeDisposable _flyToTargetDisposable = new();
 
     [Inject] private SpawnersController _spawnersController;
 
-    public void Init(float speed, int power)
+    public void Init(float speed, int power, int maxRandChance)
     {
       _speed = speed;
       _power = power;
+      _maxRandChance = maxRandChance;
+
+      GenerateRandomChance(maxRandChance);
     }
 
     private void Start()
     {
-      RandomChance();
       StartCoroutine(DoDestroyProjectile(8));
     }
 
@@ -45,7 +48,7 @@ namespace Test_Game
         damageable.Damage(_power);
         _ricochetCount++;
 
-        if (_randChance != 0)
+        if (_randChance != _maxRandChance)
         {
           if (_ricochetCount >= _maxRicochetCount)
           {
@@ -70,9 +73,9 @@ namespace Test_Game
       }
     }
 
-    private void RandomChance()
+    public void GenerateRandomChance(int value)
     {
-      _randChance = Random.Range(0, 6);
+      _randChance = Random.Range(0, value + 1);
     }
 
     private void Fly()
@@ -85,7 +88,7 @@ namespace Test_Game
 
     private void TryToRicochet()
     {
-      if (_randChance == 0)
+      if (_randChance != _maxRandChance)
       {
         DestroyProjectile();
       }
@@ -110,30 +113,23 @@ namespace Test_Game
 
     private void TryToFindNewTarget()
     {
-      if (_randChance == 0)
+      EnemyHandler closestEnemy = _spawnersController.GetSecondClosestEnemy(transform.position);
+
+      if (closestEnemy == null)
       {
         DestroyProjectile();
       }
       else
       {
-        EnemyHandler closestEnemy = _spawnersController.GetSecondClosestEnemy(transform.position);
+        _flyToTarget = true;
 
-        if (closestEnemy == null)
+        Observable.EveryUpdate().Subscribe(_ =>
         {
-          DestroyProjectile();
-        }
-        else
-        {
-          _flyToTarget = true;
-
-          Observable.EveryUpdate().Subscribe(_ =>
+          if (closestEnemy != null)
           {
-            if (closestEnemy != null)
-            {
-              MoveTowardsTarget(closestEnemy.transform.position);
-            }
-          }).AddTo(_flyToTargetDisposable);
-        }
+            MoveTowardsTarget(closestEnemy.transform.position);
+          }
+        }).AddTo(_flyToTargetDisposable);
       }
     }
 
