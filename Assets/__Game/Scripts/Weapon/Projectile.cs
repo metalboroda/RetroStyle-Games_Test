@@ -15,6 +15,7 @@ namespace Test_Game
     private int _power;
     private int _ricochetCount = 0;
     private bool _flyToTarget;
+    private int _randChance;
 
     private CompositeDisposable _flyToTargetDisposable = new();
 
@@ -28,6 +29,7 @@ namespace Test_Game
 
     private void Start()
     {
+      RandomChance();
       StartCoroutine(DoDestroyProjectile(8));
     }
 
@@ -41,14 +43,18 @@ namespace Test_Game
       if (other.TryGetComponent(out IDamageable damageable))
       {
         damageable.Damage(_power);
+        _ricochetCount++;
 
-        if (_ricochetCount >= _maxRicochetCount)
+        if (_randChance != 0)
         {
-          DestroyProjectile();
-        }
-        else
-        {
-          TryToFindNewTarget();
+          if (_ricochetCount >= _maxRicochetCount)
+          {
+            DestroyProjectile();
+          }
+          else
+          {
+            TryToFindNewTarget();
+          }
         }
       }
       else
@@ -64,6 +70,11 @@ namespace Test_Game
       }
     }
 
+    private void RandomChance()
+    {
+      _randChance = Random.Range(0, 6);
+    }
+
     private void Fly()
     {
       if (_flyToTarget == false)
@@ -74,9 +85,7 @@ namespace Test_Game
 
     private void TryToRicochet()
     {
-      int randChance = Random.Range(0, 2);
-
-      if (randChance == 0)
+      if (_randChance == 0)
       {
         DestroyProjectile();
       }
@@ -101,9 +110,7 @@ namespace Test_Game
 
     private void TryToFindNewTarget()
     {
-      int randChance = Random.Range(0, 2);
-
-      if (randChance == 0)
+      if (_randChance == 0)
       {
         DestroyProjectile();
       }
@@ -117,7 +124,6 @@ namespace Test_Game
         }
         else
         {
-          _ricochetCount++;
           _flyToTarget = true;
 
           Observable.EveryUpdate().Subscribe(_ =>
