@@ -9,7 +9,10 @@ namespace Test_Game
 
     public void RemoveEnemy(EnemyHandler enemyHandler)
     {
-      SpawnedEnemies.Remove(enemyHandler);
+      if (SpawnedEnemies.Contains(enemyHandler))
+      {
+        SpawnedEnemies.Remove(enemyHandler);
+      }
     }
 
     public EnemyHandler GetSecondClosestEnemy(Vector3 position)
@@ -57,6 +60,16 @@ namespace Test_Game
       }
 
       return secondClosestEnemy;
+    }
+
+    public void KillAllEnemies()
+    {
+      SpawnedEnemies.ForEach(enemy =>
+      {
+        enemy.Kill();
+      });
+
+      SpawnedEnemies.Clear();
     }
   }
 }

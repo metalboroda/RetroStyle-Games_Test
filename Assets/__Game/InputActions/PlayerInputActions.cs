@@ -62,6 +62,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ulta"",
+                    ""type"": ""Button"",
+                    ""id"": ""a864ce2c-bdaf-4550-9dcd-c5ca64295a4a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c69c4b66-54dc-4d15-87e0-7a3b71706cb7"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ulta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_OnFeet_Look = m_OnFeet.FindAction("Look", throwIfNotFound: true);
         m_OnFeet_Jump = m_OnFeet.FindAction("Jump", throwIfNotFound: true);
         m_OnFeet_Shoot = m_OnFeet.FindAction("Shoot", throwIfNotFound: true);
+        m_OnFeet_Ulta = m_OnFeet.FindAction("Ulta", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,6 +250,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFeet_Look;
     private readonly InputAction m_OnFeet_Jump;
     private readonly InputAction m_OnFeet_Shoot;
+    private readonly InputAction m_OnFeet_Ulta;
     public struct OnFeetActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -237,6 +259,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_OnFeet_Look;
         public InputAction @Jump => m_Wrapper.m_OnFeet_Jump;
         public InputAction @Shoot => m_Wrapper.m_OnFeet_Shoot;
+        public InputAction @Ulta => m_Wrapper.m_OnFeet_Ulta;
         public InputActionMap Get() { return m_Wrapper.m_OnFeet; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +281,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
+            @Ulta.started += instance.OnUlta;
+            @Ulta.performed += instance.OnUlta;
+            @Ulta.canceled += instance.OnUlta;
         }
 
         private void UnregisterCallbacks(IOnFeetActions instance)
@@ -274,6 +300,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
+            @Ulta.started -= instance.OnUlta;
+            @Ulta.performed -= instance.OnUlta;
+            @Ulta.canceled -= instance.OnUlta;
         }
 
         public void RemoveCallbacks(IOnFeetActions instance)
@@ -297,5 +326,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnUlta(InputAction.CallbackContext context);
     }
 }

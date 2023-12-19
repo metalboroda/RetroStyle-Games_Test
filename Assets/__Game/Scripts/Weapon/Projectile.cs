@@ -6,5 +6,8 @@ namespace Test_Game
   {
     protected float Speed;
     protected int Power;
+
+    [Header("")]
+    [SerializeField] protected float AutoDestroyTime = 5;
   }
 }

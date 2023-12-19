@@ -16,9 +16,9 @@ namespace Test_Game
 
     public override void Update()
     {
-      _playerMovementComp.Move(_playerMovement.MovementSpeed, _playerMovement.InputManager.GetMovementAxis(),
-        _playerMovement.CharacterController, _playerMovement.CameraManager.CameraMain);
-      _playerMovementComp.Rotate(_playerMovement.RotationSpeed, _playerMovement.InputManager.GetLookAxis().x,
+      _playerMovementComp.Move(_playerMovement.MovementSpeed, _playerController.InputManager.GetMovementAxis(),
+        _playerMovement.CharacterController, _playerController.CameraManager.CameraMain);
+      _playerMovementComp.Rotate(_playerMovement.RotationSpeed, _playerController.InputManager.GetLookAxis().x,
         100, _playerMovement.CharacterController);
       _playerMovementComp.Gravity(_playerMovement.CharacterController);
 

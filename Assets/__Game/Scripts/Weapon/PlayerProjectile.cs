@@ -27,7 +27,7 @@ namespace Test_Game
       _maxRandChance = maxRandChance;
 
       GenerateRandomChance(maxRandChance);
-      StartCoroutine(DoDestroyProjectile(8));
+      StartCoroutine(DoDestroyProjectile(AutoDestroyTime));
     }
 
     private void Update()

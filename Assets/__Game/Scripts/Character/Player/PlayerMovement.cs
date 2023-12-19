@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using Zenject;
 
 namespace Test_Game
 {
@@ -26,18 +25,15 @@ namespace Test_Game
 
     public PlayerMovementComp PlayerMovementComp { get; private set; }
 
-    [Inject] public CameraManager CameraManager { get; private set; }
-    [Inject] public InputManager InputManager { get; private set; }
-
     private void Awake()
     {
       PlayerMovementComp = new();
-      InputManager.JumpPressed += Jump;
+      _playerController.InputManager.JumpPressed += Jump;
     }
 
     private void OnDestroy()
     {
-      InputManager.JumpPressed -= Jump;
+      _playerController.InputManager.JumpPressed -= Jump;
     }
 
     private void OnDrawGizmosSelected()

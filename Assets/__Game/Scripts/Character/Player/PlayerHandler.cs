@@ -1,25 +1,26 @@
 using UnityEngine;
-using Zenject;
 
 namespace Test_Game
 {
   public class PlayerHandler : CharacterHandler, IDamageable
   {
-    [SerializeField] private int _energy = 50;
+    [SerializeField] private int _maxEnergy = 100;
+
+    private int _energy = 50;
 
     [Header("")]
     [SerializeField] private PlayerController _playerController;
 
-    [Inject] private PlayerStatsController _playerStatsController;
-
     private void Awake()
     {
-      _playerStatsController.EnergyAdded += AddEnergy;
+      _playerController.PlayerStatsController.EnergyAdded += AddEnergy;
+      _playerController.InputManager.UltaPressed += Ulta;
     }
 
     private void OnDestroy()
     {
-      _playerStatsController.EnergyAdded -= AddEnergy;
+      _playerController.PlayerStatsController.EnergyAdded -= AddEnergy;
+      _playerController.InputManager.UltaPressed -= Ulta;
     }
 
     public void Damage(int damage)
@@ -36,6 +37,19 @@ namespace Test_Game
     private void AddEnergy(int energy)
     {
       _energy += energy;
+
+      if (_energy >= _maxEnergy)
+      {
+        _energy = _maxEnergy;
+      }
+    }
+
+    private void Ulta()
+    {
+      if (_energy == _maxEnergy)
+      {
+        _playerController.SpawnersController.KillAllEnemies();
+      }
     }
   }
 }

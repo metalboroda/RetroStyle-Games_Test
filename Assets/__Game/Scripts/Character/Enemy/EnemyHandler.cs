@@ -35,8 +35,13 @@ namespace Test_Game
         Health = 0;
         _spawnersController.RemoveEnemy(this);
 
-        Destroy(gameObject);
+        Kill();
       }
+    }
+
+    public void Kill()
+    {
+      Destroy(gameObject);
     }
   }
 }
