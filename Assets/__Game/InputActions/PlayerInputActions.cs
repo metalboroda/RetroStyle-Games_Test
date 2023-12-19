@@ -53,6 +53,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""d432cc1b-d405-471c-8a4a-eee632f1ed4b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""21c5a9eb-2f22-460a-bde2-1418c95f757b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +163,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_OnFeet_Movement = m_OnFeet.FindAction("Movement", throwIfNotFound: true);
         m_OnFeet_Look = m_OnFeet.FindAction("Look", throwIfNotFound: true);
         m_OnFeet_Jump = m_OnFeet.FindAction("Jump", throwIfNotFound: true);
+        m_OnFeet_Shoot = m_OnFeet.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +228,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFeet_Movement;
     private readonly InputAction m_OnFeet_Look;
     private readonly InputAction m_OnFeet_Jump;
+    private readonly InputAction m_OnFeet_Shoot;
     public struct OnFeetActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -214,6 +236,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_OnFeet_Movement;
         public InputAction @Look => m_Wrapper.m_OnFeet_Look;
         public InputAction @Jump => m_Wrapper.m_OnFeet_Jump;
+        public InputAction @Shoot => m_Wrapper.m_OnFeet_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_OnFeet; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +255,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
         }
 
         private void UnregisterCallbacks(IOnFeetActions instance)
@@ -245,6 +271,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
         }
 
         public void RemoveCallbacks(IOnFeetActions instance)
@@ -267,5 +296,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

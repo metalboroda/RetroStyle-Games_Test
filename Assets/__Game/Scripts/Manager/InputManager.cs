@@ -6,6 +6,7 @@ namespace Test_Game
   public class InputManager : MonoBehaviour
   {
     public event Action JumpPressed;
+    public event Action ShootPressed;
 
     private PlayerInputActions _playerInputActions;
 
@@ -14,11 +15,13 @@ namespace Test_Game
       _playerInputActions = new();
       _playerInputActions.Enable();
       _playerInputActions.OnFeet.Jump.performed += OnJump;
+      _playerInputActions.OnFeet.Shoot.performed += OnShoot;
     }
 
     private void OnDestroy()
     {
       _playerInputActions.OnFeet.Jump.performed -= OnJump;
+      _playerInputActions.OnFeet.Shoot.performed -= OnShoot;
     }
 
     public Vector2 GetMovementAxis()
@@ -39,6 +42,11 @@ namespace Test_Game
     private void OnJump(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
       JumpPressed?.Invoke();
+    }
+
+    private void OnShoot(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+      ShootPressed?.Invoke();
     }
   }
 }

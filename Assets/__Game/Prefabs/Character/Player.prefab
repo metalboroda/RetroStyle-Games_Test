@@ -285,7 +285,8 @@ GameObject:
   - component: {fileID: 1604467215010843963}
   - component: {fileID: 5484433631447173747}
   - component: {fileID: 1329229890127129351}
-  m_Layer: 0
+  - component: {fileID: 3815183458096045209}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,6 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
+  _playerController: {fileID: 1604467215010843963}
 --- !u!114 &1329229890127129351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,6 +388,22 @@ MonoBehaviour:
     m_Bits: 8
   <CharacterController>k__BackingField: {fileID: 7465068614215928261}
   _playerController: {fileID: 1604467215010843963}
+--- !u!114 &3815183458096045209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6940593163438273863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f0d8033beef3d49b100f07895e9db6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Projectile: {fileID: 3190521583543805208, guid: 1ac4585da5716764db0b0b9df8ea4e31, type: 3}
+  ProjectileSpeed: 15
+  ProjectilePower: 100
+  _shootingPointZOffset: 0.5
 --- !u!1 &8220567636723534568
 GameObject:
   m_ObjectHideFlags: 0
