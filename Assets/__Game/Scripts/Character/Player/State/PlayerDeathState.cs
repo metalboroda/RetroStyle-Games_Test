@@ -1,5 +1,3 @@
-using Cinemachine;
-
 namespace Test_Game
 {
   public class PlayerDeathState : State

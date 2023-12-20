@@ -1,8 +1,7 @@
 using DG.Tweening;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Zenject;
 
 namespace Test_Game
 {
@@ -12,7 +11,7 @@ namespace Test_Game
 
     public static PlayerArenaOffTeleport Instance { get; private set; }
 
-    [SerializeField] private List<Transform> _teleportPoints = new();
+    [Inject] private NavMeshController _navMeshController;
 
     private void Awake()
     {
@@ -29,14 +28,9 @@ namespace Test_Game
 
     private void TeleportPlayer(Transform playerTransform)
     {
-      if (_teleportPoints.Count == 0)
-      {
-        return;
-      }
+      Vector3 randomTeleportPoint = _navMeshController.GetRandomPointOnNavMesh();
 
-      Transform randomTeleportPoint = _teleportPoints[Random.Range(0, _teleportPoints.Count)];
-
-      playerTransform.DOMove(randomTeleportPoint.position, 0);
+      playerTransform.DOMove(randomTeleportPoint, 0);
 
       PlayerTeleported?.Invoke();
     }
