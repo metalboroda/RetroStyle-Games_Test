@@ -8,7 +8,7 @@ namespace Test_Game
     [SerializeField] private float _shootingPointZOffset = 1;
 
     [field: Header("Ricochete")]
-    [SerializeField] public int MaxRandomChance { get; private set; } = 10;
+    [field: SerializeField] public int MaxRandomChance { get; private set; } = 10;
     [SerializeField] private int _lowHealthChance = 0;
 
     private int _randomChance;

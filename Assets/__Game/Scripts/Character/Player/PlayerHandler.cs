@@ -55,6 +55,8 @@ namespace Test_Game
       }
 
       _playerController.UIManager.UpdateHealthBar(Health);
+
+      HealthChanged?.Invoke(Health);
     }
 
     private void AddEnergy(int energy)
