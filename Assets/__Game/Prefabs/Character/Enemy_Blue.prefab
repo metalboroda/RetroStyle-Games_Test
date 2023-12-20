@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: -8792558352547001960, guid: b1b91204ed834ce40bde6e45874a7f21, type: 3}
-  <ProjectileSpeed>k__BackingField: 5
+  <ProjectileSpeed>k__BackingField: 15
   <ProjectilePower>k__BackingField: 25
   _shootingPoint: {fileID: 4998748161616611029}
   _shootingRate: 3

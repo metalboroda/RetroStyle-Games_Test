@@ -3786,6 +3786,10 @@ PrefabInstance:
       propertyPath: m_VerticalAxis.m_InputAxisName
       value: Mouse Y
       objectReference: {fileID: 0}
+    - target: {fileID: 3815183458096045209, guid: 7257e6973d2b2e04dad767167188492f, type: 3}
+      propertyPath: <MaxRandomChance>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4263913540441855826, guid: 7257e6973d2b2e04dad767167188492f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5

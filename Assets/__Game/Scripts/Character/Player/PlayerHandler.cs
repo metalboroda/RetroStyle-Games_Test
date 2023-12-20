@@ -5,8 +5,7 @@ namespace Test_Game
   public class PlayerHandler : CharacterHandler, IDamageable
   {
     [SerializeField] private int _maxEnergy = 100;
-
-    private int _energy = 50;
+    [SerializeField] private int _currentEnergy = 50;
 
     [Header("")]
     [SerializeField] private PlayerController _playerController;
@@ -36,17 +35,17 @@ namespace Test_Game
 
     private void AddEnergy(int energy)
     {
-      _energy += energy;
+      _currentEnergy += energy;
 
-      if (_energy >= _maxEnergy)
+      if (_currentEnergy >= _maxEnergy)
       {
-        _energy = _maxEnergy;
+        _currentEnergy = _maxEnergy;
       }
     }
 
     private void Ulta()
     {
-      if (_energy == _maxEnergy)
+      if (_currentEnergy == _maxEnergy)
       {
         _playerController.SpawnersController.KillAllEnemies();
       }

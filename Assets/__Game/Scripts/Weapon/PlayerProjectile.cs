@@ -34,6 +34,11 @@ namespace Test_Game
       Fly();
     }
 
+    private void OnDestroy()
+    {
+      _moveToTargetDisposable.Dispose();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
       if ((IgnoreLayer.value & (1 << other.gameObject.layer)) != 0)
@@ -129,6 +134,10 @@ namespace Test_Game
           {
             MoveTowardsTarget(closestEnemy.transform.position);
           }
+          else
+          {
+            transform.Translate(Vector3.forward * Speed * Time.deltaTime);
+          }
         }).AddTo(_moveToTargetDisposable);
       }
     }
@@ -146,13 +155,6 @@ namespace Test_Game
       _moveToTargetDisposable.Dispose();
 
       Destroy(gameObject);
-    }
-
-    private IEnumerator DoDestroyProjectile(float delay)
-    {
-      yield return new WaitForSeconds(delay);
-
-      DestroyProjectile();
     }
   }
 }
