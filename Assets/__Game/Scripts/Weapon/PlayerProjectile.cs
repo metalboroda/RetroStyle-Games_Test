@@ -27,16 +27,20 @@ namespace Test_Game
       _maxRandChance = maxRandChance;
 
       GenerateRandomChance(maxRandChance);
-      StartCoroutine(DoDestroyProjectile(AutoDestroyTime));
     }
 
-    private void Update()
+    protected void Update()
     {
       Fly();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+      if ((IgnoreLayer.value & (1 << other.gameObject.layer)) != 0)
+      {
+        return;
+      }
+
       if (other.TryGetComponent(out IDamageable damageable))
       {
         damageable.Damage(Power);

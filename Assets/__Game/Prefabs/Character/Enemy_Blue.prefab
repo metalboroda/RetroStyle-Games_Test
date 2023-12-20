@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 889920308805786805}
   - component: {fileID: 6288649018203766733}
   - component: {fileID: 4391786659978350557}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,9 +323,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: -8792558352547001960, guid: b1b91204ed834ce40bde6e45874a7f21, type: 3}
-  <ProjectileSpeed>k__BackingField: 15
+  <ProjectileSpeed>k__BackingField: 5
   <ProjectilePower>k__BackingField: 25
   _shootingPoint: {fileID: 4998748161616611029}
+  _shootingRate: 3
 --- !u!1 &5212599415348941907
 GameObject:
   m_ObjectHideFlags: 0

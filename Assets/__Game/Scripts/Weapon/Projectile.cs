@@ -8,7 +8,7 @@ namespace Test_Game
     protected int Power;
 
     [Header("")]
-    [SerializeField] protected float AutoDestroyTime = 5;
+    [SerializeField] protected LayerMask IgnoreLayer;
 
     protected virtual void Fly() { }
   }
