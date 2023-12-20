@@ -20,6 +20,11 @@ namespace Test_Game
     [SerializeField] private Button _menuRestartBtn;
     [SerializeField] private Button _menuExitBtn;
 
+    [Header("LoseScreen")]
+    [SerializeField] private GameObject _loseScreen;
+    [SerializeField] private Button _loseRestartBtn;
+    [SerializeField] private Button _loseExitBtn;
+
     [Header("")]
     [SerializeField] private GameController _gameController;
     [SerializeField] private SpawnersController _spawnersController;
@@ -28,6 +33,7 @@ namespace Test_Game
     {
       _gameController.StateChanged += HandleCursor;
       _gameController.StateChanged += EnableMenuScreen;
+      _gameController.StateChanged += EnableLoseScreen;
       _spawnersController.EnemyKilled += UpdateKillCounter;
     }
 
@@ -44,6 +50,7 @@ namespace Test_Game
     {
       _gameController.StateChanged -= HandleCursor;
       _gameController.StateChanged -= EnableMenuScreen;
+      _gameController.StateChanged -= EnableLoseScreen;
       _spawnersController.EnemyKilled -= UpdateKillCounter;
     }
 
@@ -52,6 +59,9 @@ namespace Test_Game
       _menuStartBtn.onClick.AddListener(() => { _gameController.PausePlayGame(); });
       _menuRestartBtn.onClick.AddListener(() => { _gameController.RestartGame(); });
       _menuExitBtn.onClick.AddListener(() => { Application.Quit(); });
+
+      _loseRestartBtn.onClick.AddListener(() => { _gameController.RestartGame(); });
+      _loseExitBtn.onClick.AddListener(() => { Application.Quit(); });
     }
 
     private void UpdateKillCounter(int counter)
@@ -84,6 +94,16 @@ namespace Test_Game
       else
       {
         EnableScreen(_gameScreen);
+      }
+    }
+
+    private void EnableLoseScreen(GameState gameState)
+    {
+      if (gameState != GameState.Lose) return;
+
+      if (gameState == GameState.Lose)
+      {
+        EnableScreen(_loseScreen);
       }
     }
 
