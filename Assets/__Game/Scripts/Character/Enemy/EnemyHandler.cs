@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Zenject;
 
 namespace Test_Game
 {
@@ -11,8 +10,8 @@ namespace Test_Game
     [Header("")]
     [SerializeField] private int _deathCost;
 
-    [Inject] private PlayerStatsController _playerStatsController;
-    [Inject] private SpawnersController _spawnersController;
+    [Header("")]
+    [SerializeField] private EnemyController _enemyController;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,11 +19,11 @@ namespace Test_Game
       {
         if (playerProjectile.Ricocheted == false)
         {
-          _playerStatsController.AddEnergy(_deathCost);
+          _enemyController.PlayerStatsController.AddEnergy(_deathCost);
         }
         else
         {
-          _playerStatsController.AddRandomEnergyHealth();
+          _enemyController.PlayerStatsController.AddRandomEnergyHealth();
         }
       }
     }
@@ -36,7 +35,7 @@ namespace Test_Game
       if (Health <= 0)
       {
         Health = 0;
-        _spawnersController.RemoveEnemy(this);
+        _enemyController.SpawnersController.RemoveEnemy(this);
 
         Kill();
       }

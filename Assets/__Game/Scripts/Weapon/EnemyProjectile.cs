@@ -8,7 +8,7 @@ namespace Test_Game
   {
     private Tweener _flyTween;
     private Tweener _lookTween;
-    private CompositeDisposable _lookDisposable = new();
+    private CompositeDisposable _chaseDisposable = new();
     private CompositeDisposable _flyDisposable = new();
 
     private PlayerController _playerController;
@@ -47,7 +47,7 @@ namespace Test_Game
       }
 
       _flyDisposable.Clear();
-      _lookDisposable.Dispose();
+      _chaseDisposable.Dispose();
       _flyDisposable.Dispose();
 
       Destroy(gameObject);
@@ -64,7 +64,7 @@ namespace Test_Game
           _lookTween = transform.DOLookAt(targetPosition, 0, AxisConstraint.Y);
           transform.position = Vector3.MoveTowards(transform.position, targetPosition, Speed * Time.deltaTime);
         }
-      }).AddTo(_lookDisposable);
+      }).AddTo(_chaseDisposable);
     }
 
     private void FlyForward()
@@ -72,7 +72,7 @@ namespace Test_Game
       DOTween.Kill(_flyTween);
       DOTween.Kill(_lookTween);
 
-      _lookDisposable.Clear();
+      _chaseDisposable.Clear();
 
       Observable.EveryUpdate().Subscribe(_ =>
       {
