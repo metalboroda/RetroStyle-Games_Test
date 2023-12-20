@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   _deathCost: 15
-  _enemyController: {fileID: 2376748049093512767}
+  <EnemyController>k__BackingField: {fileID: 2376748049093512767}
   _power: 15
 --- !u!114 &6144004103626796993
 MonoBehaviour:
@@ -133,6 +133,7 @@ MonoBehaviour:
   _minPreChaseDelay: 1
   _maxPreChaseDelay: 2.5
   _lookDuration: 0.5
+  _enemyController: {fileID: 2376748049093512767}
 --- !u!1 &3805920432163179774
 GameObject:
   m_ObjectHideFlags: 0

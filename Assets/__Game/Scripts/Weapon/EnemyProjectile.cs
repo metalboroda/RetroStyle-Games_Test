@@ -79,5 +79,16 @@ namespace Test_Game
         transform.Translate(Vector3.forward * Speed * Time.deltaTime);
       }).AddTo(_flyDisposable);
     }
+
+    public void DestroyProjectile()
+    {
+      DOTween.Kill(_flyTween);
+      DOTween.Kill(_lookTween);
+
+      _chaseDisposable.Dispose();
+      _flyDisposable.Dispose();
+
+      Destroy(gameObject);
+    }
   }
 }

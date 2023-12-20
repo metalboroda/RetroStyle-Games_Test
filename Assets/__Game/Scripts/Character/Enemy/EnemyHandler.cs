@@ -10,8 +10,8 @@ namespace Test_Game
     [Header("")]
     [SerializeField] private int _deathCost;
 
-    [Header("")]
-    [SerializeField] private EnemyController _enemyController;
+    [field: Header("")]
+    [field: SerializeField] public EnemyController EnemyController { get; private set; }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,11 +19,11 @@ namespace Test_Game
       {
         if (playerProjectile.Ricocheted == false)
         {
-          _enemyController.PlayerStatsController.AddEnergy(_deathCost);
+          EnemyController.PlayerStatsController.AddEnergy(_deathCost);
         }
         else
         {
-          _enemyController.PlayerStatsController.AddRandomEnergyHealth();
+          EnemyController.PlayerStatsController.AddRandomEnergyHealth();
         }
       }
     }
@@ -35,7 +35,7 @@ namespace Test_Game
       if (Health <= 0)
       {
         Health = 0;
-        _enemyController.SpawnersController.RemoveEnemy(this);
+        EnemyController.SpawnersController.RemoveEnemy(this);
 
         Kill();
       }

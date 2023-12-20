@@ -12,6 +12,12 @@ namespace Test_Game
       {
         damageable.Damage(_power);
       }
+
+      if (other.GetComponent<PlayerHandler>() != null)
+      {
+        EnemyController.SpawnersController.RemoveEnemy(this);
+        Kill();
+      }
     }
   }
 }

@@ -53,6 +53,7 @@ namespace Test_Game
       if (_currentEnergy == _maxEnergy)
       {
         _playerController.SpawnersController.KillAllEnemies();
+        _currentEnergy = 0;
       }
     }
   }

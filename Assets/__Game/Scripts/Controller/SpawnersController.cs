@@ -48,7 +48,7 @@ namespace Test_Game
 
     public EnemyHandler GetSecondClosestEnemy(Vector3 position)
     {
-      if (_spawnedEnemies.Count < 2)
+      if (_spawnedEnemies.Count < 2 || _spawnedEnemies.Count == 0)
       {
         return null;
       }

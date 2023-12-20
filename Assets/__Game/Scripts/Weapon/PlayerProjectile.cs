@@ -46,6 +46,13 @@ namespace Test_Game
         return;
       }
 
+      if (other.TryGetComponent(out EnemyProjectile enemyProjectile))
+      {
+        enemyProjectile.DestroyProjectile();
+
+        DestroyProjectile();
+      }
+
       if (other.TryGetComponent(out IDamageable damageable))
       {
         damageable.Damage(Power);

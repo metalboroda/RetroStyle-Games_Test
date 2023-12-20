@@ -16,11 +16,19 @@ namespace Test_Game
     [Header("")]
     [SerializeField] private float _lookDuration = 0.5f;
 
+    [Header("")]
+    [SerializeField] private EnemyController _enemyController;
+
     private Vector3 _targetPosition;
 
     private CompositeDisposable _chaseDisposable = new();
 
     private PlayerController _playerController;
+
+    private void Awake()
+    {
+      _enemyController.EnemyHandler.Dead += StopChasing;
+    }
 
     private void Start()
     {
@@ -38,7 +46,7 @@ namespace Test_Game
 
     private void OnDestroy()
     {
-      _chaseDisposable.Dispose();
+      _enemyController.EnemyHandler.Dead -= StopChasing;
     }
 
     private void FlyToTheSky()
@@ -64,6 +72,12 @@ namespace Test_Game
               }
             }).AddTo(_chaseDisposable);
           }).AddTo(_chaseDisposable);
+    }
+
+    private void StopChasing()
+    {
+      _chaseDisposable.Clear();
+      _chaseDisposable.Dispose();
     }
   }
 }
