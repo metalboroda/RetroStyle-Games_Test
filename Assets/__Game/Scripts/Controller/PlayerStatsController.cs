@@ -23,7 +23,7 @@ namespace Test_Game
     {
       float randomValue = Random.value;
 
-      if (randomValue < 0.7f)
+      if (randomValue <= 0.7f)
       {
         AddEnergy(10);
       }

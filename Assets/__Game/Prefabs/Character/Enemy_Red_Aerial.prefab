@@ -115,6 +115,9 @@ MonoBehaviour:
   _deathCost: 15
   <EnemyController>k__BackingField: {fileID: 2376748049093512767}
   _power: 15
+  _collisionDeathLayer:
+    serializedVersion: 2
+    m_Bits: 9
 --- !u!114 &6144004103626796993
 MonoBehaviour:
   m_ObjectHideFlags: 0

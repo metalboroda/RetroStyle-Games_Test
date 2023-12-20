@@ -12,7 +12,9 @@ namespace Test_Game
 
     [Header("GameScreen")]
     [SerializeField] private GameObject _gameScreen;
-    [SerializeField] private TextMeshProUGUI _killCounterTxt;
+    [SerializeField] private TextMeshProUGUI _gameKillCounterTxt;
+    [SerializeField] private Image _gameHealth;
+    [SerializeField] private Image _gameEnergy;
 
     [Header("MenuScreen")]
     [SerializeField] private GameObject _menuScreen;
@@ -64,9 +66,14 @@ namespace Test_Game
       _loseExitBtn.onClick.AddListener(() => { Application.Quit(); });
     }
 
-    private void UpdateKillCounter(int counter)
+    public void UpdateHealthBar(int health)
     {
-      _killCounterTxt.SetText(counter.ToString());
+      _gameHealth.fillAmount = (float)health / 100f;
+    }
+
+    public void UpdateEnergyBar(int energy)
+    {
+      _gameEnergy.fillAmount = (float)energy / 100f;
     }
 
     private void HandleCursor(GameState gameState)
@@ -81,6 +88,11 @@ namespace Test_Game
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
       }
+    }
+
+    private void UpdateKillCounter(int counter)
+    {
+      _gameKillCounterTxt.SetText(counter.ToString());
     }
 
     private void EnableMenuScreen(GameState gameState)

@@ -17,6 +17,7 @@ namespace Test_Game
     [Inject] public CameraManager CameraManager { get; private set; }
     [Inject] public PlayerStatsController PlayerStatsController { get; private set; }
     [Inject] public SpawnersController SpawnersController { get; private set; }
+    [Inject] public UIManager UIManager { get; private set; }
 
     private void Awake()
     {

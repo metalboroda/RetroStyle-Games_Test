@@ -364,6 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
+  _maxHealth: 100
   _maxEnergy: 100
   _currentEnergy: 50
   _playerController: {fileID: 1604467215010843963}
@@ -406,7 +407,7 @@ MonoBehaviour:
   <ProjectileSpeed>k__BackingField: 15
   <ProjectilePower>k__BackingField: 100
   _shootingPointZOffset: 0.5
-  _lowHealthChance: 1
+  _lowHealthChance: 0
 --- !u!1 &8220567636723534568
 GameObject:
   m_ObjectHideFlags: 0

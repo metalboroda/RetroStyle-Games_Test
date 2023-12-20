@@ -9,7 +9,7 @@ namespace Test_Game
 
     [field: Header("Ricochete")]
     [SerializeField] public int MaxRandomChance { get; private set; } = 10;
-    [SerializeField] private int _lowHealthChance = 1;
+    [SerializeField] private int _lowHealthChance = 0;
 
     private int _randomChance;
 

@@ -7,6 +7,7 @@ namespace Test_Game
   {
     public event Action<int> HealthChanged;
 
+    [SerializeField] private int _maxHealth = 100;
     [SerializeField] private int _maxEnergy = 100;
     [SerializeField] private int _currentEnergy = 50;
 
@@ -15,12 +16,17 @@ namespace Test_Game
 
     private void Awake()
     {
+      _playerController.UIManager.UpdateHealthBar(Health);
+      _playerController.UIManager.UpdateEnergyBar(_currentEnergy);
+
+      _playerController.PlayerStatsController.HealthAdded += AddHealth;
       _playerController.PlayerStatsController.EnergyAdded += AddEnergy;
       _playerController.InputManager.UltaPressed += Ulta;
     }
 
     private void OnDestroy()
     {
+      _playerController.PlayerStatsController.HealthAdded -= AddHealth;
       _playerController.PlayerStatsController.EnergyAdded -= AddEnergy;
       _playerController.InputManager.UltaPressed -= Ulta;
     }
@@ -30,12 +36,25 @@ namespace Test_Game
       Health -= damage;
 
       HealthChanged?.Invoke(Health);
+      _playerController.UIManager.UpdateHealthBar(Health);
 
       if (Health <= 0)
       {
         Health = 0;
         _playerController.StateMachine.ChangeState(new PlayerDeathState(_playerController));
       }
+    }
+
+    private void AddHealth(int health)
+    {
+      Health += health;
+
+      if (health >= _maxHealth)
+      {
+        Health = _maxHealth;
+      }
+
+      _playerController.UIManager.UpdateHealthBar(Health);
     }
 
     private void AddEnergy(int energy)
@@ -46,6 +65,8 @@ namespace Test_Game
       {
         _currentEnergy = _maxEnergy;
       }
+
+      _playerController.UIManager.UpdateEnergyBar(_currentEnergy);
     }
 
     private void Ulta()
@@ -54,6 +75,8 @@ namespace Test_Game
       {
         _playerController.SpawnersController.KillAllEnemies();
         _currentEnergy = 0;
+
+        _playerController.UIManager.UpdateEnergyBar(_currentEnergy);
       }
     }
   }
