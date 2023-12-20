@@ -31,11 +31,13 @@ namespace Test_Game
     {
       PlayerMovementComp = new();
       CinemachineInputProvider = GetComponentInChildren<CinemachineInputProvider>();
+      _playerController.GameController.StateChanged += SwitchProvider;
       _playerController.InputManager.JumpPressed += Jump;
     }
 
     private void OnDestroy()
     {
+      _playerController.GameController.StateChanged -= SwitchProvider;
       _playerController.InputManager.JumpPressed -= Jump;
     }
 
@@ -68,6 +70,18 @@ namespace Test_Game
       yield return new WaitForSeconds(_jumpDuration);
 
       _playerController.StateMachine.ChangeState(new PlayerInAirState(_playerController));
+    }
+
+    private void SwitchProvider(GameState gameState)
+    {
+      if (gameState == GameState.Game)
+      {
+        CinemachineInputProvider.enabled = true;
+      }
+      else
+      {
+        CinemachineInputProvider.enabled = false;
+      }
     }
   }
 }

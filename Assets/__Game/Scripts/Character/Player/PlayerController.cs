@@ -12,6 +12,7 @@ namespace Test_Game
 
     public StateMachine StateMachine { get; private set; } = new();
 
+    [Inject] public GameController GameController { get; private set; }
     [Inject] public InputManager InputManager { get; private set; }
     [Inject] public CameraManager CameraManager { get; private set; }
     [Inject] public PlayerStatsController PlayerStatsController { get; private set; }

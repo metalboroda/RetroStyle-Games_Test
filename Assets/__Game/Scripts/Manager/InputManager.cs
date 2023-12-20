@@ -8,6 +8,7 @@ namespace Test_Game
     public event Action JumpPressed;
     public event Action ShootPressed;
     public event Action UltaPressed;
+    public event Action PausePressed;
 
     private PlayerInputActions _playerInputActions;
 
@@ -18,6 +19,7 @@ namespace Test_Game
       _playerInputActions.OnFeet.Jump.performed += OnJump;
       _playerInputActions.OnFeet.Shoot.performed += OnShoot;
       _playerInputActions.OnFeet.Ulta.performed += OnUlta;
+      _playerInputActions.General.Pause.performed += OnPause;
     }
 
     private void OnDestroy()
@@ -25,12 +27,19 @@ namespace Test_Game
       _playerInputActions.OnFeet.Jump.performed -= OnJump;
       _playerInputActions.OnFeet.Shoot.performed -= OnShoot;
       _playerInputActions.OnFeet.Ulta.performed -= OnUlta;
+      _playerInputActions.General.Pause.performed -= OnPause;
+    }
+
+    public void EnableControls()
+    {
+      _playerInputActions.Enable();
     }
 
     public void DisableControls()
     {
       _playerInputActions.Disable();
     }
+
 
     public Vector2 GetMovementAxis()
     {
@@ -60,6 +69,11 @@ namespace Test_Game
     private void OnUlta(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
       UltaPressed?.Invoke();
+    }
+
+    private void OnPause(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+      PausePressed?.Invoke();
     }
   }
 }

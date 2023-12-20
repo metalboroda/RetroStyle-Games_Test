@@ -158,7 +158,7 @@
             "id": "a5eb95ce-f17f-47b1-9c00-aaadb542970a",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Pause",
                     "type": "Button",
                     "id": "a4ff789e-2ba6-4f18-8d33-ceee342a2b61",
                     "expectedControlType": "Button",
@@ -175,7 +175,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
