@@ -17,7 +17,7 @@ namespace Test_Game
     [Header("")]
     [SerializeField] private NavMeshController _navMeshController;
 
-    public List<EnemyHandler> SpawnedEnemies = new();
+    private List<EnemyHandler> _spawnedEnemies = new();
 
     private float _currentSpawnInterval;
     private float _minSpawnInterval = 6f;
@@ -33,22 +33,22 @@ namespace Test_Game
 
     public void RemoveEnemy(EnemyHandler enemyHandler)
     {
-      if (SpawnedEnemies.Contains(enemyHandler))
+      if (_spawnedEnemies.Contains(enemyHandler))
       {
-        SpawnedEnemies.Remove(enemyHandler);
+        _spawnedEnemies.Remove(enemyHandler);
       }
     }
 
     public EnemyHandler GetSecondClosestEnemy(Vector3 position)
     {
-      if (SpawnedEnemies.Count < 2)
+      if (_spawnedEnemies.Count < 2)
       {
         return null;
       }
 
-      EnemyHandler closestEnemy = SpawnedEnemies[0];
+      EnemyHandler closestEnemy = _spawnedEnemies[0];
       float closestDistance = Vector3.Distance(position, closestEnemy.transform.position);
-      EnemyHandler secondClosestEnemy = SpawnedEnemies[1];
+      EnemyHandler secondClosestEnemy = _spawnedEnemies[1];
       float secondClosestDistance = Vector3.Distance(position, secondClosestEnemy.transform.position);
 
       if (closestDistance > secondClosestDistance)
@@ -64,21 +64,21 @@ namespace Test_Game
         secondClosestDistance = tempDistance;
       }
 
-      for (int i = 2; i < SpawnedEnemies.Count; i++)
+      for (int i = 2; i < _spawnedEnemies.Count; i++)
       {
-        float distance = Vector3.Distance(position, SpawnedEnemies[i].transform.position);
+        float distance = Vector3.Distance(position, _spawnedEnemies[i].transform.position);
 
         if (distance < closestDistance)
         {
           secondClosestEnemy = closestEnemy;
           secondClosestDistance = closestDistance;
 
-          closestEnemy = SpawnedEnemies[i];
+          closestEnemy = _spawnedEnemies[i];
           closestDistance = distance;
         }
         else if (distance < secondClosestDistance)
         {
-          secondClosestEnemy = SpawnedEnemies[i];
+          secondClosestEnemy = _spawnedEnemies[i];
           secondClosestDistance = distance;
         }
       }
@@ -88,14 +88,14 @@ namespace Test_Game
 
     public void KillAllEnemies()
     {
-      if (SpawnedEnemies.Count == 0) return;
+      if (_spawnedEnemies.Count == 0) return;
 
-      SpawnedEnemies.ForEach(enemy =>
+      _spawnedEnemies.ForEach(enemy =>
       {
         enemy.Kill();
       });
 
-      SpawnedEnemies.Clear();
+      _spawnedEnemies.Clear();
     }
 
     private IEnumerator SpawnEnemiesRoutine()
@@ -117,18 +117,18 @@ namespace Test_Game
 
     private void SpawnBlueEnemy()
     {
-      if (SpawnedEnemies.Count < _maxEnemies)
+      if (_spawnedEnemies.Count < _maxEnemies)
       {
         EnemyHandler blueEnemy = _spawnContainer.InstantiatePrefabForComponent<EnemyHandler>(_blueEnemyPrefab,
           _navMeshController.GetRandomPointOnNavMesh(), Quaternion.identity, null);
 
-        SpawnedEnemies.Add(blueEnemy);
+        _spawnedEnemies.Add(blueEnemy);
       }
     }
 
     private void SpawnRedEnemy()
     {
-      if (SpawnedEnemies.Count < _maxEnemies)
+      if (_spawnedEnemies.Count < _maxEnemies)
       {
         Vector3 spawnPosition = _navMeshController.GetRandomPointOnNavMesh();
 
@@ -137,7 +137,7 @@ namespace Test_Game
         EnemyHandler redEnemy = _spawnContainer.InstantiatePrefabForComponent<EnemyHandler>(_redEnemyPrefab,
           spawnPosition, Quaternion.identity, null);
 
-        SpawnedEnemies.Add(redEnemy);
+        _spawnedEnemies.Add(redEnemy);
       }
     }
 
