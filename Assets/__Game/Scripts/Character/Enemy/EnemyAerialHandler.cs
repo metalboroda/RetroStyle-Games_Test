@@ -12,8 +12,6 @@ namespace Test_Game
       {
         damageable.Damage(_power);
       }
-
-      Kill();
     }
   }
 }
