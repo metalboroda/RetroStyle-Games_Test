@@ -8,9 +8,14 @@ namespace Test_Game
     [SerializeField] private float _shootingPointZOffset = 1;
 
     [field: Header("Ricochete")]
-    [field: SerializeField] public int MaxRandomChance { get; private set; } = 10;
+    [SerializeField] public int MaxRandomChance { get; private set; } = 10;
+    [SerializeField] private int _lowHealthChance = 1;
+
+    private int _randomChance;
 
     private Transform _shootingPoint;
+
+    private PlayerHandler _playerHandler;
 
     [Inject] private DiContainer _projectileContainer;
 
@@ -19,6 +24,11 @@ namespace Test_Game
 
     private void Awake()
     {
+      _randomChance = MaxRandomChance;
+
+      _playerHandler = GetComponent<PlayerHandler>();
+      _playerHandler.HealthChanged += ChangeMaxChance;
+
       _inputManager.ShootPressed += Shoot;
     }
 
@@ -29,6 +39,7 @@ namespace Test_Game
 
     private void OnDestroy()
     {
+      _playerHandler.HealthChanged -= ChangeMaxChance;
       _inputManager.ShootPressed -= Shoot;
     }
 
@@ -39,7 +50,19 @@ namespace Test_Game
           _shootingPointZOffset, _shootingPoint.rotation, null
       );
 
-      spawnedProjectile.Init(ProjectileSpeed, ProjectilePower, MaxRandomChance);
+      spawnedProjectile.Init(ProjectileSpeed, ProjectilePower, _randomChance);
+    }
+
+    private void ChangeMaxChance(int health)
+    {
+      if (health <= 25)
+      {
+        _randomChance = _lowHealthChance;
+      }
+      else
+      {
+        _randomChance = MaxRandomChance;
+      }
     }
   }
 }

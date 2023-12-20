@@ -127,11 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d38e4528d7c5248bb9418a7c8fb9fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 2.5
+  <MovementSpeed>k__BackingField: 5
   _minSkyHeight: 5
   _maxSkyHeight: 8
   _minPreChaseDelay: 1
-  _maxPreChaseDelay: 3
+  _maxPreChaseDelay: 2.5
   _lookDuration: 0.5
 --- !u!1 &3805920432163179774
 GameObject:

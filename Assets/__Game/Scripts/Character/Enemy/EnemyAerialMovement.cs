@@ -10,8 +10,8 @@ namespace Test_Game
   {
     [SerializeField] private float _minSkyHeight = 5;
     [SerializeField] private float _maxSkyHeight = 8;
-    [SerializeField] private int _minPreChaseDelay = 1;
-    [SerializeField] private int _maxPreChaseDelay = 3;
+    [SerializeField] private float _minPreChaseDelay = 1;
+    [SerializeField] private float _maxPreChaseDelay = 3;
 
     [Header("")]
     [SerializeField] private float _lookDuration = 0.5f;

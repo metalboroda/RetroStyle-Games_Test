@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 namespace Test_Game
 {
   public class PlayerHandler : CharacterHandler, IDamageable
   {
+    public event Action<int> HealthChanged;
+
     [SerializeField] private int _maxEnergy = 100;
     [SerializeField] private int _currentEnergy = 50;
 
@@ -25,6 +28,8 @@ namespace Test_Game
     public void Damage(int damage)
     {
       Health -= damage;
+
+      HealthChanged?.Invoke(Health);
 
       if (Health <= 0)
       {
