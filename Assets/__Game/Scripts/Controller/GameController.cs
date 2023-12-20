@@ -38,6 +38,8 @@ namespace Test_Game
 
     private void PauseGame()
     {
+      if (GameState == GameState.Lose) return;
+
       if (GameState == GameState.Game)
       {
         Time.timeScale = 0;
