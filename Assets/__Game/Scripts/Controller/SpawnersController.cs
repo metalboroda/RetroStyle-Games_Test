@@ -24,18 +24,18 @@ namespace Test_Game
 
       EnemyHandler closestEnemy = SpawnedEnemies[0];
       float closestDistance = Vector3.Distance(position, closestEnemy.transform.position);
-
       EnemyHandler secondClosestEnemy = SpawnedEnemies[1];
       float secondClosestDistance = Vector3.Distance(position, secondClosestEnemy.transform.position);
 
-      // Ensure closestEnemy and secondClosestEnemy are correctly assigned
       if (closestDistance > secondClosestDistance)
       {
         EnemyHandler temp = closestEnemy;
+
         closestEnemy = secondClosestEnemy;
         secondClosestEnemy = temp;
 
         float tempDistance = closestDistance;
+
         closestDistance = secondClosestDistance;
         secondClosestDistance = tempDistance;
       }
@@ -64,6 +64,8 @@ namespace Test_Game
 
     public void KillAllEnemies()
     {
+      if (SpawnedEnemies.Count == 0) return;
+
       SpawnedEnemies.ForEach(enemy =>
       {
         enemy.Kill();
