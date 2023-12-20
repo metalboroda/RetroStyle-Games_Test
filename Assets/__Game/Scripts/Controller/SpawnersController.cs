@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace Test_Game
 {
   public class SpawnersController : MonoBehaviour
   {
+    public event Action<int> EnemyKilled;
+
     [SerializeField] private EnemyHandler _blueEnemyPrefab;
     [SerializeField] private EnemyHandler _redEnemyPrefab;
 
@@ -21,6 +24,7 @@ namespace Test_Game
 
     private float _currentSpawnInterval;
     private float _minSpawnInterval = 6f;
+    private int _killedEnemiesCounter;
 
     [Inject] private DiContainer _spawnContainer;
 
@@ -35,7 +39,10 @@ namespace Test_Game
     {
       if (_spawnedEnemies.Contains(enemyHandler))
       {
+        _killedEnemiesCounter++;
         _spawnedEnemies.Remove(enemyHandler);
+
+        EnemyKilled?.Invoke(_killedEnemiesCounter);
       }
     }
 

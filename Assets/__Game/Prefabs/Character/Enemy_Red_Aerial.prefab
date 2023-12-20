@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MovementSpeed>k__BackingField: 5
-  _minSkyHeight: 5
-  _maxSkyHeight: 8
+  _minSkyHeight: 3.5
+  _maxSkyHeight: 5
   _minPreChaseDelay: 1
   _maxPreChaseDelay: 2.5
   _lookDuration: 0.5
