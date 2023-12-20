@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
-  _deathCost: 15
+  <DeathCost>k__BackingField: 15
   <EnemyController>k__BackingField: {fileID: 2376748049093512767}
   _power: 15
   _collisionDeathLayer:

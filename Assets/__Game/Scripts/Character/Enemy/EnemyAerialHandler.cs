@@ -11,6 +11,18 @@ namespace Test_Game
 
     private void OnTriggerEnter(Collider other)
     {
+      if (other.TryGetComponent(out PlayerProjectile playerProjectile))
+      {
+        if (playerProjectile.Ricocheted == false)
+        {
+          EnemyController.PlayerStatsController.AddEnergy(DeathCost);
+        }
+        else
+        {
+          EnemyController.PlayerStatsController.AddRandomEnergyHealth();
+        }
+      }
+
       if (other.TryGetComponent(out IDamageable damageable))
       {
         damageable.Damage(_power);
@@ -19,11 +31,14 @@ namespace Test_Game
       if (other.GetComponent<PlayerHandler>() != null)
       {
         EnemyController.SpawnersController.RemoveEnemy(this);
+
         Kill();
       }
 
       if ((_collisionDeathLayer.value & (1 << other.gameObject.layer)) != 0)
       {
+        EnemyController.SpawnersController.RemoveEnemy(this);
+
         Kill();
       }
     }

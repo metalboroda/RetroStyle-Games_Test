@@ -7,8 +7,8 @@ namespace Test_Game
   {
     public event Action Dead;
 
-    [Header("")]
-    [SerializeField] private int _deathCost;
+    [field: Header("")]
+    [field: SerializeField] public int DeathCost { get; private set; }
 
     [field: Header("")]
     [field: SerializeField] public EnemyController EnemyController { get; private set; }
@@ -19,7 +19,7 @@ namespace Test_Game
       {
         if (playerProjectile.Ricocheted == false)
         {
-          EnemyController.PlayerStatsController.AddEnergy(_deathCost);
+          EnemyController.PlayerStatsController.AddEnergy(DeathCost);
         }
         else
         {

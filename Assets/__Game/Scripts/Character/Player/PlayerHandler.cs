@@ -49,7 +49,7 @@ namespace Test_Game
     {
       Health += health;
 
-      if (health >= _maxHealth)
+      if (Health >= _maxHealth)
       {
         Health = _maxHealth;
       }

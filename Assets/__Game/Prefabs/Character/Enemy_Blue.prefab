@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
-  _deathCost: 50
+  <DeathCost>k__BackingField: 50
   <EnemyController>k__BackingField: {fileID: 7113504714122489201}
 --- !u!114 &6288649018203766733
 MonoBehaviour:
