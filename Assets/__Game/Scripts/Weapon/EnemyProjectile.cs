@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Lean.Pool;
 using UniRx;
 using UnityEngine;
 
@@ -50,7 +51,7 @@ namespace Test_Game
       _chaseDisposable.Dispose();
       _flyDisposable.Dispose();
 
-      Destroy(gameObject);
+      DestroyProjectile();
     }
 
     protected override void Fly()
@@ -87,6 +88,8 @@ namespace Test_Game
 
       _chaseDisposable.Dispose();
       _flyDisposable.Dispose();
+
+      LeanPool.Spawn(DestroyVFXObj, transform.position, Quaternion.identity);
 
       Destroy(gameObject);
     }

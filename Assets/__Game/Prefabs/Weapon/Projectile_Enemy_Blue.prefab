@@ -89,3 +89,4 @@ MonoBehaviour:
   IgnoreLayer:
     serializedVersion: 2
     m_Bits: 768
+  DestroyVFXObj: {fileID: 5178291602632046302, guid: 37661095a24d3bf47b55a163508736c4, type: 3}

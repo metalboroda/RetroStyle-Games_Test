@@ -10,6 +10,9 @@ namespace Test_Game
     [Header("")]
     [SerializeField] protected LayerMask IgnoreLayer;
 
+    [Header("VFX")]
+    [SerializeField] protected GameObject DestroyVFXObj;
+
     protected virtual void Fly() { }
   }
 }

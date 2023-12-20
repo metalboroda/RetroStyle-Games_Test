@@ -290,6 +290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
+  DeathVFXObj: {fileID: 8443354246485524531, guid: 292ac7ab34d283f47a714f5c111e9a35, type: 3}
+  VFXYOffset: 1
   <DeathCost>k__BackingField: 50
   <EnemyController>k__BackingField: {fileID: 7113504714122489201}
 --- !u!114 &6288649018203766733

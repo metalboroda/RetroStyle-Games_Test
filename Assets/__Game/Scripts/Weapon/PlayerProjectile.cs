@@ -1,3 +1,4 @@
+using Lean.Pool;
 using System.Collections;
 using UniRx;
 using UnityEngine;
@@ -160,6 +161,8 @@ namespace Test_Game
     private void DestroyProjectile()
     {
       _moveToTargetDisposable.Dispose();
+
+      LeanPool.Spawn(DestroyVFXObj, transform.position, Quaternion.identity);
 
       Destroy(gameObject);
     }

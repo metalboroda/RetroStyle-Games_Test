@@ -1,3 +1,4 @@
+using Lean.Pool;
 using System;
 using UnityEngine;
 
@@ -44,6 +45,11 @@ namespace Test_Game
     public void Kill()
     {
       Dead?.Invoke();
+
+      Vector3 vfxPos = new Vector3(transform.position.x, transform.position.y + VFXYOffset,
+        transform.position.z);
+
+      LeanPool.Spawn(DeathVFXObj, vfxPos, Quaternion.identity);
 
       Destroy(gameObject);
     }

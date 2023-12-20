@@ -1,3 +1,4 @@
+using Lean.Pool;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ namespace Test_Game
     [Header("")]
     [SerializeField] private float _initialSpawnInterval = 10f;
     [SerializeField] private int _maxEnemies = 30;
+
+    [Header("VFX")]
+    [SerializeField] private GameObject _spawnVFXObj;
 
     [Header("")]
     [SerializeField] private NavMeshController _navMeshController;
@@ -126,10 +130,14 @@ namespace Test_Game
     {
       if (_spawnedEnemies.Count < _maxEnemies)
       {
+        Vector3 spawnPosition = _navMeshController.GetRandomPointOnNavMesh();
+
         EnemyHandler blueEnemy = _spawnContainer.InstantiatePrefabForComponent<EnemyHandler>(_blueEnemyPrefab,
-          _navMeshController.GetRandomPointOnNavMesh(), Quaternion.identity, null);
+          spawnPosition, Quaternion.identity, null);
 
         _spawnedEnemies.Add(blueEnemy);
+
+        LeanPool.Spawn(_spawnVFXObj, blueEnemy.transform.position, Quaternion.identity);
       }
     }
 
@@ -145,6 +153,8 @@ namespace Test_Game
           spawnPosition, Quaternion.identity, null);
 
         _spawnedEnemies.Add(redEnemy);
+
+        LeanPool.Spawn(_spawnVFXObj, redEnemy.transform.position, Quaternion.identity);
       }
     }
 
