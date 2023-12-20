@@ -11,8 +11,9 @@ namespace Test_Game
 
     public override void Enter()
     {
-      _playerController.InputManager.DisableControls();
+      _playerController.InputManager.DisableOnFeetControls();
       _playerController.PlayerMovement.CinemachineInputProvider.enabled = false;
+      _playerController.GameController.ChangeState(GameState.Lose);
     }
   }
 }

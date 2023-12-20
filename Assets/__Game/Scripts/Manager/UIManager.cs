@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Test_Game
 {
@@ -15,6 +16,9 @@ namespace Test_Game
 
     [Header("MenuScreen")]
     [SerializeField] private GameObject _menuScreen;
+    [SerializeField] private Button _menuStartBtn;
+    [SerializeField] private Button _menuRestartBtn;
+    [SerializeField] private Button _menuExitBtn;
 
     [Header("")]
     [SerializeField] private GameController _gameController;
@@ -32,6 +36,7 @@ namespace Test_Game
       Cursor.lockState = CursorLockMode.Locked;
       Cursor.visible = false;
 
+      SubscribeButtons();
       UpdateKillCounter(0);
     }
 
@@ -40,6 +45,13 @@ namespace Test_Game
       _gameController.StateChanged -= HandleCursor;
       _gameController.StateChanged -= EnableMenuScreen;
       _spawnersController.EnemyKilled -= UpdateKillCounter;
+    }
+
+    private void SubscribeButtons()
+    {
+      _menuStartBtn.onClick.AddListener(() => { _gameController.PausePlayGame(); });
+      _menuRestartBtn.onClick.AddListener(() => { _gameController.RestartGame(); });
+      _menuExitBtn.onClick.AddListener(() => { Application.Quit(); });
     }
 
     private void UpdateKillCounter(int counter)

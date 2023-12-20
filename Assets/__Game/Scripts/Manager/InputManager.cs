@@ -10,50 +10,50 @@ namespace Test_Game
     public event Action UltaPressed;
     public event Action PausePressed;
 
-    private PlayerInputActions _playerInputActions;
+    public PlayerInputActions PlayerInputActions { get; private set; }
 
     private void Awake()
     {
-      _playerInputActions = new();
-      _playerInputActions.Enable();
-      _playerInputActions.OnFeet.Jump.performed += OnJump;
-      _playerInputActions.OnFeet.Shoot.performed += OnShoot;
-      _playerInputActions.OnFeet.Ulta.performed += OnUlta;
-      _playerInputActions.General.Pause.performed += OnPause;
+      PlayerInputActions = new();
+      PlayerInputActions.Enable();
+      PlayerInputActions.OnFeet.Jump.performed += OnJump;
+      PlayerInputActions.OnFeet.Shoot.performed += OnShoot;
+      PlayerInputActions.OnFeet.Ulta.performed += OnUlta;
+      PlayerInputActions.General.Pause.performed += OnPause;
     }
 
     private void OnDestroy()
     {
-      _playerInputActions.OnFeet.Jump.performed -= OnJump;
-      _playerInputActions.OnFeet.Shoot.performed -= OnShoot;
-      _playerInputActions.OnFeet.Ulta.performed -= OnUlta;
-      _playerInputActions.General.Pause.performed -= OnPause;
+      PlayerInputActions.OnFeet.Jump.performed -= OnJump;
+      PlayerInputActions.OnFeet.Shoot.performed -= OnShoot;
+      PlayerInputActions.OnFeet.Ulta.performed -= OnUlta;
+      PlayerInputActions.General.Pause.performed -= OnPause;
     }
 
-    public void EnableControls()
+    public void EnableOnFeetControls()
     {
-      _playerInputActions.Enable();
+      PlayerInputActions.OnFeet.Enable();
     }
 
-    public void DisableControls()
+    public void DisableOnFeetControls()
     {
-      _playerInputActions.Disable();
+      PlayerInputActions.OnFeet.Disable();
     }
 
 
     public Vector2 GetMovementAxis()
     {
-      return _playerInputActions.OnFeet.Movement.ReadValue<Vector2>();
+      return PlayerInputActions.OnFeet.Movement.ReadValue<Vector2>();
     }
 
     public Vector2 GetLookAxis()
     {
-      return _playerInputActions.OnFeet.Look.ReadValue<Vector2>();
+      return PlayerInputActions.OnFeet.Look.ReadValue<Vector2>();
     }
 
     public float GetLookAxisY()
     {
-      return _playerInputActions.OnFeet.Look.ReadValue<Vector2>().y;
+      return PlayerInputActions.OnFeet.Look.ReadValue<Vector2>().y;
     }
 
     private void OnJump(UnityEngine.InputSystem.InputAction.CallbackContext obj)
