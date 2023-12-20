@@ -365,6 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   _maxEnergy: 100
+  _currentEnergy: 50
   _playerController: {fileID: 1604467215010843963}
 --- !u!114 &1329229890127129351
 MonoBehaviour:
@@ -382,7 +383,7 @@ MonoBehaviour:
   <RotationSpeed>k__BackingField: 20
   <JumpForce>k__BackingField: 0
   _jumpDuration: 0.3
-  <JumpImpulse>k__BackingField: 0
+  <JumpImpulse>k__BackingField: 10
   _groundCheckRadius: 0.2
   _groundLayer:
     serializedVersion: 2
@@ -405,7 +406,7 @@ MonoBehaviour:
   <ProjectileSpeed>k__BackingField: 15
   <ProjectilePower>k__BackingField: 100
   _shootingPointZOffset: 0.5
-  <MaxRandomChance>k__BackingField: 10
+  _lowHealthChance: 1
 --- !u!1 &8220567636723534568
 GameObject:
   m_ObjectHideFlags: 0
