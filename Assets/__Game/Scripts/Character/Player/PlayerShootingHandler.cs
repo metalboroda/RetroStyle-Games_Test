@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Zenject;
 
@@ -8,8 +9,12 @@ namespace Test_Game
     [SerializeField] private float _shootingPointZOffset = 1;
 
     [field: Header("Ricochete")]
-    [field: SerializeField] public int MaxRandomChance { get; private set; } = 10;
+    [field: SerializeField] public int MaxRandomChance { get; private set; } = 12;
     [SerializeField] private int _lowHealthChance = 0;
+
+    [Header("AutoShoot")]
+    [SerializeField] private LayerMask _autoShootLayer;
+    [SerializeField] private float _autoShootRate = 1;
 
     private int _randomChance;
 
@@ -21,6 +26,10 @@ namespace Test_Game
 
     [Inject] private CameraManager _cameraManager;
     [Inject] private InputManager _inputManager;
+
+    private Coroutine _autoShootCoroutine;
+
+    private PlayerProjectile _spawnedProjectile;
 
     private void Awake()
     {
@@ -37,20 +46,33 @@ namespace Test_Game
       _shootingPoint = _cameraManager.CameraMain.transform;
     }
 
+    private void Update()
+    {
+      if (Application.platform == RuntimePlatform.Android)
+      {
+        AutoShoot();
+      }
+    }
+
     private void OnDestroy()
     {
       _playerHandler.HealthChanged -= ChangeMaxChance;
       _inputManager.ShootPressed -= Shoot;
+
+      if (_autoShootCoroutine != null)
+      {
+        StopCoroutine(_autoShootCoroutine);
+      }
     }
 
     protected override void Shoot()
     {
-      PlayerProjectile spawnedProjectile = _projectileContainer.InstantiatePrefabForComponent<PlayerProjectile>(
+      _spawnedProjectile = _projectileContainer.InstantiatePrefabForComponent<PlayerProjectile>(
           Projectile, _shootingPoint.position + _shootingPoint.forward *
           _shootingPointZOffset, _shootingPoint.rotation, null
       );
 
-      spawnedProjectile.Init(ProjectileSpeed, ProjectilePower, _randomChance);
+      _spawnedProjectile.Init(ProjectileSpeed, ProjectilePower, _randomChance);
     }
 
     private void ChangeMaxChance(int health)
@@ -62,6 +84,38 @@ namespace Test_Game
       else
       {
         _randomChance = MaxRandomChance;
+      }
+    }
+
+    private void AutoShoot()
+    {
+      Ray ray = _cameraManager.CameraMain.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
+      if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _autoShootLayer))
+      {
+        if (_autoShootCoroutine == null)
+        {
+          _autoShootCoroutine = StartCoroutine(DoAutoShoot());
+        }
+      }
+      else
+      {
+        if (_autoShootCoroutine != null)
+        {
+          StopCoroutine(_autoShootCoroutine);
+
+          _autoShootCoroutine = null;
+        }
+      }
+    }
+
+    private IEnumerator DoAutoShoot()
+    {
+      while (true)
+      {
+        Shoot();
+
+        yield return new WaitForSeconds(_autoShootRate);
       }
     }
   }

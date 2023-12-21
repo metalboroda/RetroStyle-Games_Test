@@ -30,6 +30,12 @@ namespace Test_Game
     [SerializeField] private Button _loseRestartBtn;
     [SerializeField] private Button _loseExitBtn;
 
+    [Header("TutorialPC")]
+    [SerializeField] private GameObject _tutorialObj;
+
+    [Header("MobileControls")]
+    [SerializeField] private GameObject _mobileControlsObj;
+
     [Header("")]
     [SerializeField] private GameController _gameController;
     [SerializeField] private SpawnersController _spawnersController;
@@ -51,6 +57,7 @@ namespace Test_Game
 
       SubscribeButtons();
       UpdateKillCounter(0);
+      SwitchMobileStuff();
     }
 
     private void OnDestroy()
@@ -156,6 +163,20 @@ namespace Test_Game
               _damageVignette.DOFade(0, _damageFadeDuration);
             });
           });
+    }
+
+    private void SwitchMobileStuff()
+    {
+      if (Application.platform == RuntimePlatform.Android)
+      {
+        _mobileControlsObj.SetActive(true);
+        _tutorialObj.SetActive(false);
+      }
+      else
+      {
+        _mobileControlsObj.SetActive(false);
+        _tutorialObj.SetActive(true);
+      }
     }
   }
 }

@@ -411,6 +411,10 @@ MonoBehaviour:
   _shootingPointZOffset: 0.5
   <MaxRandomChance>k__BackingField: 12
   _lowHealthChance: 0
+  _autoShootLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  _autoShootRate: 0.3
 --- !u!1 &8220567636723534568
 GameObject:
   m_ObjectHideFlags: 0

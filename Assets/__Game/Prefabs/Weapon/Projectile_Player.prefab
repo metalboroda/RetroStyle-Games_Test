@@ -87,6 +87,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IgnoreLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2176
   DestroyVFXObj: {fileID: 5178291602632046302, guid: 96ba3c24c66b6dd48a8ec73ebdc815aa, type: 3}
   _maxRicochetCount: 2
