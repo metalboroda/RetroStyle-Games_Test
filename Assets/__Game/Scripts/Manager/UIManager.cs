@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace Test_Game
     [SerializeField] private TextMeshProUGUI _gameKillCounterTxt;
     [SerializeField] private Image _gameHealth;
     [SerializeField] private Image _gameEnergy;
+    [SerializeField] private Image _damageVignette;
+    [SerializeField] private float _damageFadeDuration = 0.5f;
 
     [Header("MenuScreen")]
     [SerializeField] private GameObject _menuScreen;
@@ -30,6 +33,8 @@ namespace Test_Game
     [Header("")]
     [SerializeField] private GameController _gameController;
     [SerializeField] private SpawnersController _spawnersController;
+
+    private Tweener _damageTween;
 
     private void Awake()
     {
@@ -132,6 +137,25 @@ namespace Test_Game
           screen.SetActive(false);
         }
       }
+    }
+
+    public void ShowDamage()
+    {
+      if (_damageTween != null)
+      {
+        DOTween.Kill(_damageTween);
+      }
+
+      _damageVignette.color = new Color(_damageVignette.color.r, _damageVignette.color.g, _damageVignette.color.b, 1f);
+
+      _damageTween = _damageVignette.DOFade(1, _damageFadeDuration / 2.5f)
+          .OnComplete(() =>
+          {
+            DOVirtual.DelayedCall(0.15f, () =>
+            {
+              _damageVignette.DOFade(0, _damageFadeDuration);
+            });
+          });
     }
   }
 }

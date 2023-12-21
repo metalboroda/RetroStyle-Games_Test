@@ -364,6 +364,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
+  DeathVFXObj: {fileID: 0}
+  VFXYOffset: 0
   _maxHealth: 100
   _maxEnergy: 100
   _currentEnergy: 50
@@ -407,6 +409,7 @@ MonoBehaviour:
   <ProjectileSpeed>k__BackingField: 15
   <ProjectilePower>k__BackingField: 100
   _shootingPointZOffset: 0.5
+  <MaxRandomChance>k__BackingField: 12
   _lowHealthChance: 0
 --- !u!1 &8220567636723534568
 GameObject:

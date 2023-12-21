@@ -37,6 +37,7 @@ namespace Test_Game
 
       HealthChanged?.Invoke(Health);
       _playerController.UIManager.UpdateHealthBar(Health);
+      _playerController.UIManager.ShowDamage();
 
       if (Health <= 0)
       {
